@@ -1,0 +1,17 @@
+schema_version: 1
+projects: []
+
+# Add approved and active Claude Design projects using this shape:
+# - id: DES-001
+#   title: Example
+#   status: InProgress
+#   claude_design_url: https://claude.ai/design/replace-me
+#   related_prds:
+#     - PRD-001
+#   design_system_version: v1.0.0
+#   approved_version: null
+#   approved_at: null
+#   export_path: null
+#   handoff_path: null
+#   modified_at: YYYY-MM-DD
+#   reason: Initial registration
