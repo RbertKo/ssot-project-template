@@ -20,7 +20,9 @@ project/
 docs/
 ├── governance/              # SSoT 규칙과 운영 워크플로
 ├── product/
-│   └── prd/                 # 제품 스펙과 해야 할 일의 원본
+│   ├── overview.md          # 제품 전체 개요와 방향
+│   ├── capabilities/        # 대단위 기능 지도와 경계
+│   └── prd/                 # 상세 스펙과 해야 할 일의 원본
 ├── design/
 │   ├── claude-design/       # Claude Design 링크, 승인본, 핸드오프
 │   ├── system/              # 승인된 디자인 시스템 릴리스
@@ -38,7 +40,9 @@ docs/
 
 | 질문 | 기준 문서 |
 | --- | --- |
-| 무엇을 왜 만들어야 하는가? | `docs/product/prd/PRD-*.md` |
+| 제품은 누구를 위해 어떤 문제를 해결하는가? | `docs/product/overview.md` |
+| 제품의 대단위 기능과 경계는 무엇인가? | `docs/product/capabilities/CAP-*.md` |
+| 구현 가능한 제품 변화의 상세 요구사항은 무엇인가? | `docs/product/prd/PRD-*.md` |
 | 해야 할 일의 상태와 우선순위는 무엇인가? | 연결된 `PRD-*`의 `Work Items` |
 | 지금 승인된 디자인 시스템은 무엇인가? | `docs/design/system/README.md` |
 | Claude Design의 어떤 결과를 사용해야 하는가? | `docs/design/claude-design/projects.yaml` |
@@ -53,6 +57,7 @@ docs/
 
 | 영역 | 형식 | 예시 |
 | --- | --- | --- |
+| 대단위 기능 | `CAP-NNN-slug.md` | `CAP-001-curation.md` |
 | PRD | `PRD-NNN-slug.md` | `PRD-001-onboarding.md` |
 | PRD 내부 요구사항 | `REQ-NNN` | `REQ-001` |
 | PRD 내부 작업 | `WORK-NNN` | `WORK-001` |
@@ -65,6 +70,8 @@ docs/
 
 ## First Documents
 
+- 제품 개요: [`product/overview.md`](product/overview.md)
+- 대단위 기능: [`product/capabilities/CAP-000-template.md`](product/capabilities/CAP-000-template.md)
 - 제품 작업: [`product/prd/PRD-000-template.md`](product/prd/PRD-000-template.md)
 - 디자인 결정: [`design/decisions/DDR-000-template.md`](design/decisions/DDR-000-template.md)
 - 아키텍처 결정: [`architecture/adr/ADR-000-template.md`](architecture/adr/ADR-000-template.md)

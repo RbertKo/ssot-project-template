@@ -12,6 +12,7 @@ external_refs:
   linear: null
 depends_on: []
 related_prds: []
+capability_refs: []
 design_refs: []
 architecture_refs: []
 api_refs: []
@@ -48,6 +49,7 @@ implementation_refs: []
 
 | 종류 | ID 또는 링크 | 설명 |
 | --- | --- | --- |
+| Capability | - | - |
 | Design | - | - |
 | DDR | - | - |
 | ADR | - | - |

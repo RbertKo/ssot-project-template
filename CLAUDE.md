@@ -9,12 +9,16 @@
 1. [`docs/README.md`](docs/README.md)
 2. [`docs/governance/ssot.md`](docs/governance/ssot.md)
 3. [`docs/governance/workflow.md`](docs/governance/workflow.md)
-4. 작업 대상과 연결된 `PRD-*`, `DES-*`, `DDR-*`, `ADR-*`, `API-*` 문서
-5. 작업 대상 구현 코드와 테스트
+4. [`docs/product/overview.md`](docs/product/overview.md)
+5. 작업 대상과 연결된 `CAP-*`, `PRD-*`, `DES-*`, `DDR-*`, `ADR-*`, `API-*` 문서
+6. 작업 대상 구현 코드와 테스트
 
 ## Product Rules
 
-- 제품 요구사항과 해야 할 일은 `docs/product/prd/`의 PRD에서만 정의한다.
+- 제품 전체 방향은 `docs/product/overview.md`에서 정의한다.
+- 대단위 기능 경계는 `docs/product/capabilities/`의 `CAP-*`에서 정의한다.
+- 상세 요구사항과 해야 할 일은 `docs/product/prd/`의 PRD에서만 정의한다.
+- PRD는 하나 이상의 `CAP-*`를 참조한다.
 - 디자인, 아키텍처, API 문서는 요구사항을 복제하지 않고 PRD ID를 참조한다.
 - 구현 코드와 테스트는 같은 저장소에서 관리하고 연결 PRD의 의도와 완료 기준을 충족해야 한다.
 - 외부 도구의 상태와 설명은 저장소 문서를 대체하지 않는다.

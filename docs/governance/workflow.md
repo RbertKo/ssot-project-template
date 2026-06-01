@@ -2,6 +2,17 @@
 
 제품 작업은 PRD를 중심으로 흐른다. 디자인과 아키텍처 문서는 PRD를 구체화하거나 결정 이유를 기록하고, 구현 코드와 테스트는 같은 저장소에서 완료 기준을 실현하고 검증한다. 어느 영역도 별도 요구사항 백로그가 되지 않는다.
 
+## Product Hierarchy
+
+| 계층 | 역할 | 변경 빈도 |
+| --- | --- | --- |
+| `overview.md` | 제품 전체 방향, 사용자, 가치, 범위 | 낮음 |
+| `CAP-*` | 대단위 기능 영역과 안정적인 경계 | 낮음 |
+| `PRD-*` | 구현 가능한 변화의 상세 요구사항과 완료 기준 | 중간 |
+| `WORK-*` | PRD 안에서 수행할 구체적인 실행 항목 | 높음 |
+
+새 PRD는 하나 이상의 `CAP-*`를 참조한다. 연결할 capability가 없다면 새 기능 영역인지 기존 경계 변경인지 먼저 판단하고 `CAP-*`를 추가하거나 갱신한다.
+
 ## PRD Status
 
 | 상태 | 의미 | 전환 시 필수 기록 |
@@ -42,6 +53,23 @@ Linear의 단순한 우선순위 모델을 따라 다음 값만 사용한다.
 | `due_date` | `YYYY-MM-DD` 또는 `null` | 완료 목표일 |
 | `reason` | 한 문장 | 마지막 변경 이유 |
 | `external_refs` | 키와 URL 또는 ID | 외부 도구 연결 |
+| `capability_refs` | `CAP-NNN` 목록 | 이 PRD가 구체화하는 대단위 기능 |
+
+## Capability Metadata
+
+모든 `CAP-*`는 다음 필드를 가진다.
+
+| 필드 | 형식 | 설명 |
+| --- | --- | --- |
+| `id` | `CAP-NNN` | 변경되지 않는 식별자 |
+| `lifecycle` | Capability lifecycle | 기능 영역의 제품 수명주기 |
+| `owner` | 이름 또는 `Unassigned` | 기능 영역 책임자 |
+| `created_at` | `YYYY-MM-DD` | 최초 작성일 |
+| `modified_at` | `YYYY-MM-DD` | 마지막 의미 변경일 |
+| `reason` | 한 문장 | 마지막 변경 이유 |
+| `parent_capability` | `CAP-NNN` 또는 `null` | 필요한 경우 상위 기능 영역 |
+
+Capability와 PRD의 연결 관계 원본은 `PRD-*`의 `capability_refs`다. Capability 인덱스와 `CAP-*`의 PRD 목록은 탐색을 위한 파생 뷰로만 관리한다.
 
 ## Decision Record Status
 
@@ -67,19 +95,22 @@ API 계약은 다음 상태 집합을 사용한다.
 
 ## Change Procedure
 
-1. PRD의 요구사항, 작업 상태, 일정, 우선순위를 먼저 갱신한다.
-2. `modified_at`과 `reason`을 갱신한다.
-3. PRD의 `Change Log`에 수정 이유를 추가한다.
-4. 필요한 디자인, DDR, ADR, API 문서를 추가하거나 연결한다.
-5. 구현 코드와 테스트를 변경하고 PRD에 구현 경로와 검증 근거를 연결한다.
-6. 외부 도구를 사용하는 경우 PRD 변경을 기준으로 동기화한다.
+1. 제품 방향 변경이면 `overview.md`를 먼저 갱신한다.
+2. 대단위 기능 경계 변경이면 `CAP-*`를 추가하거나 갱신한다.
+3. PRD의 요구사항, 작업 상태, 일정, 우선순위를 갱신한다.
+4. 수정한 문서의 `modified_at`, `reason`, `Change Log`를 갱신한다.
+5. 필요한 디자인, DDR, ADR, API 문서를 추가하거나 연결한다.
+6. 구현 코드와 테스트를 변경하고 PRD에 구현 경로와 검증 근거를 연결한다.
+7. 외부 도구를 사용하는 경우 PRD 변경을 기준으로 동기화한다.
 
 ## Review Gates
 
 | 시점 | 확인 사항 |
 | --- | --- |
+| 제품 방향 변경 | `overview.md`의 제품 범위와 capability map이 일치하는가 |
+| Capability 등록 | 목적, 경계, 상위 capability, 연결 PRD가 명확한가 |
 | `ToDo` 등록 | 문제, 범위, 완료 기준, 우선순위가 명확한가 |
-| `InProgress` 전환 | 담당자, 의존성, 필요한 디자인과 결정 문서, 예상 구현 경로가 연결됐는가 |
+| `InProgress` 전환 | capability, 담당자, 의존성, 필요한 디자인과 결정 문서, 예상 구현 경로가 연결됐는가 |
 | 디자인 승인 | `DES-*` 승인 버전과 내보내기본이 등록됐는가 |
 | 구조 변경 | 관련 ADR과 API 버전 영향이 기록됐는가 |
 | `Done` 전환 | 완료 기준별 구현 경로와 테스트 등 검증 근거가 기록됐는가 |
