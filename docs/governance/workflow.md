@@ -1,3 +1,8 @@
+---
+modified_at: 2026-10-19
+reason: SSoT 보일러플레이트에 문서 검사·파생 인덱스·적용 및 정본 경계 규칙을 반영했다
+---
+
 # Workflow
 
 제품 작업은 PRD를 중심으로 흐른다. 디자인과 아키텍처 문서는 PRD를 구체화하거나 결정 이유를 기록하고, 구현 코드와 테스트는 같은 저장소에서 완료 기준을 실현하고 검증한다. 어느 영역도 별도 요구사항 백로그가 되지 않는다.
@@ -101,7 +106,12 @@ API 계약은 다음 상태 집합을 사용한다.
 4. 수정한 문서의 `modified_at`, `reason`, `Change Log`를 갱신한다.
 5. 필요한 디자인, DDR, ADR, API 문서를 추가하거나 연결한다.
 6. 구현 코드와 테스트를 변경하고 PRD에 구현 경로와 검증 근거를 연결한다.
-7. 외부 도구를 사용하는 경우 PRD 변경을 기준으로 동기화한다.
+7. `node scripts/ssot-docs.mjs --write`로 인덱스를 재생성하고 `node scripts/ssot-docs.mjs`로 검사한다. 변경한 인덱스의 `modified_at`·`reason`·Change Log도 갱신한다.
+8. 외부 도구를 사용하는 경우 PRD 변경을 기준으로 동기화한다.
+
+상태 전환에는 날짜·변경 주체·대상 PRD/WORK·이전→이후 상태·이유를 Change Log에 남긴다. `Hold`는 재검토 조건, `Cancel`은 취소 이유와 대체 경로, `Done`은 구현·검증 근거를 기록한다. 테스트를 실행하지 않았다면 통과로 기록하지 않는다.
+
+수집한 요구는 `requirements/`에서 정제한 뒤 PRD로 승격한다. `plans/`의 실행 방법, `implementation/`의 구현 기록, `test-reports/`의 검증 결과는 해당 PRD·WORK에 연결한다. 이 경로에 상세 스펙이나 현재 작업 상태를 중복 관리하지 않는다. 제품 요구사항에 영향을 주지 않는 문서 운영 도구 변경은 거버넌스 문서와 PR의 검증 근거로 기록할 수 있다.
 
 ## Review Gates
 
@@ -123,3 +133,9 @@ API 계약은 다음 상태 집합을 사용한다.
 - [Linear issue status](https://linear.app/docs/configuring-workflows)
 - [Linear priority](https://linear.app/docs/priority)
 - [Linear due dates](https://linear.app/docs/due-dates)
+
+## Change Log
+
+| 날짜 | 변경자 | 변경 이유 |
+| --- | --- | --- |
+| 2026-10-19 | Codex | SSoT 보일러플레이트에 문서 검사·파생 인덱스·적용 및 정본 경계 규칙을 반영했다 |
