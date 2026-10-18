@@ -1,3 +1,8 @@
+---
+modified_at: 2026-10-19
+reason: SSoT 보일러플레이트에 문서 검사·파생 인덱스·적용 및 정본 경계 규칙을 반영했다
+---
+
 # Documentation Map
 
 `docs/`는 제품 운영 문서의 기준 위치다. 코드와 분리된 별도 저장소가 아니며, 구현 코드와 같은 Git 저장소 안에서 함께 관리한다. 각 정보는 아래 표에서 지정한 한 곳에서만 정의한다.
@@ -7,12 +12,16 @@
 ```text
 project/
 ├── docs/                     # 제품 의도, 결정, 계약, AI 메모리 운영 규칙
+├── scripts/                  # 제품 스택과 독립된 문서 검사·인덱스 생성
+├── .github/workflows/        # 문서 검사 CI
 ├── CLAUDE.md                 # AI 공통 규칙 원본
 ├── AGENTS.md                 # CLAUDE.md 호환 진입점
 └── <implementation paths>/   # 코드, 테스트, 설정, 인프라 정의
 ```
 
 구현 디렉터리 이름은 기술 구조가 확정될 때 ADR로 결정한다. 예를 들어 `apps/`, `packages/`, `services/`, `infra/`를 사용할 수 있지만, 필요가 확인되기 전에 빈 구조를 고정하지 않는다.
+
+프로젝트에 적용한 뒤에는 이 예시 트리를 실제 경로로 바꾸고 [`architecture/current.md`](architecture/current.md)의 책임·계약 연결을 함께 갱신한다. 경로 추가·이동·폐기 시 현재 구조와 역사 기록을 구분한다.
 
 ## Documentation Structure
 
@@ -33,6 +42,10 @@ docs/
 │   ├── frontend/            # 현재 FE 구조 요약
 │   ├── backend/             # 현재 BE 구조 요약
 │   └── infrastructure/      # 현재 Infra 구조 요약
+├── requirements/            # 요구사항 수집·정제 기록과 PRD 승격 연결
+├── plans/                   # PRD에 연결된 실행 방법·순서
+├── implementation/          # 구현 과정·핸드오프 근거
+├── test-reports/            # 검증 실행 결과와 한계
 └── ai/                      # AI 메모리 운영 규칙과 템플릿
 ```
 
@@ -52,6 +65,9 @@ docs/
 | 특정 API 계약의 유효 버전은 무엇인가? | `docs/architecture/api/API-*.md` |
 | 실제 제품 동작은 무엇인가? | 구현 코드와 테스트 |
 | AI 도구는 어떤 규칙을 따라야 하는가? | 루트 `CLAUDE.md` |
+| 새 프로젝트에 어떻게 적용하는가? | [`governance/adoption.md`](governance/adoption.md) |
+| 문서 인덱스 정합을 어떻게 검사하는가? | [`governance/README.md`](governance/README.md) |
+| 요구사항 수집·실행 계획·구현 근거·검증 결과는 어디에 두는가? | [`requirements/`](requirements/README.md), [`plans/`](plans/README.md), [`implementation/`](implementation/README.md), [`test-reports/`](test-reports/README.md) |
 
 ## Naming
 
@@ -76,3 +92,9 @@ docs/
 - 디자인 결정: [`design/decisions/DDR-000-template.md`](design/decisions/DDR-000-template.md)
 - 아키텍처 결정: [`architecture/adr/ADR-000-template.md`](architecture/adr/ADR-000-template.md)
 - API 계약: [`architecture/api/API-000-template.md`](architecture/api/API-000-template.md)
+
+## Change Log
+
+| 날짜 | 변경자 | 변경 이유 |
+| --- | --- | --- |
+| 2026-10-19 | Codex | SSoT 보일러플레이트에 문서 검사·파생 인덱스·적용 및 정본 경계 규칙을 반영했다 |

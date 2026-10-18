@@ -1,0 +1,22 @@
+name: SSoT documentation
+
+on:
+  push: {}
+  pull_request: {}
+
+permissions:
+  contents: read
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test documentation tooling
+        run: node --test scripts/ssot-docs.test.mjs
+      - name: Check source-derived indexes
+        run: node scripts/ssot-docs.mjs

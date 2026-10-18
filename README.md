@@ -1,3 +1,8 @@
+---
+modified_at: 2026-10-19
+reason: SSoT 보일러플레이트에 문서 검사·파생 인덱스·적용 및 정본 경계 규칙을 반영했다
+---
+
 # Project Operating System
 
 이 디렉터리는 제품 문서와 구현 코드를 함께 관리하는 단일 제품 저장소다.
@@ -7,6 +12,8 @@
 `docs/`는 코드와 분리된 별도 프로젝트가 아니다. 제품 의도와 결정 기록을 찾기 위한 저장소 내부의 기준 위치다. 구현 디렉터리는 기술 선택이 확정될 때 루트에 추가하고 관련 PRD와 ADR에서 경로를 연결한다.
 
 ## Start Here
+
+새 프로젝트를 만들 때는 먼저 [적용 가이드](docs/governance/adoption.md)를 따라 제품 정보·통합 브랜치·실제 구현 경로를 채운다. 이 저장소의 빈 인덱스와 `*-000-template.md`는 초기 골격이며 출시된 제품 상태가 아니다.
 
 1. [`docs/README.md`](docs/README.md)에서 전체 구조와 문서별 책임을 확인한다.
 2. [`docs/product/overview.md`](docs/product/overview.md)에서 제품 전체 방향을 확인한다.
@@ -28,6 +35,16 @@
 
 ## Repository Prerequisite
 
+문서 도구에는 Node.js 22 이상을 사용한다. 패키지 설치·DB·시크릿 없이 실행하며 제품 구현 언어와 패키지 관리자는 별도로 선택한다.
+
+```sh
+node scripts/ssot-docs.mjs --write
+node scripts/ssot-docs.mjs
+node --test scripts/ssot-docs.test.mjs
+```
+
+첫 명령은 CAP·PRD·ADR·DDR·API 인덱스를 원문에서 생성하고, 두 번째는 파일을 쓰지 않고 드리프트·ID·관계를 검사한다. GitHub CI도 검사와 테스트를 실행한다. 명령·지원 형식·검사 한계는 [거버넌스 안내](docs/governance/README.md)를 따른다.
+
 이 디렉터리를 Git 저장소로 관리한다. 문서, 코드, 테스트, 설정, 인프라 정의의 의미 변경은 같은 저장소의 커밋으로 남겨 시점별 이력을 보존한다.
 
 ## Rule Of Thumb
@@ -39,3 +56,9 @@
 - 왜 그렇게 결정했는지 찾을 때는 ADR 또는 DDR을 본다.
 - 지금 유효한 승인본을 찾을 때는 각 영역의 인덱스를 본다.
 - AI 도구가 따라야 할 규칙을 찾을 때는 [`CLAUDE.md`](CLAUDE.md)를 본다.
+
+## Change Log
+
+| 날짜 | 변경자 | 변경 이유 |
+| --- | --- | --- |
+| 2026-10-19 | Codex | SSoT 보일러플레이트에 문서 검사·파생 인덱스·적용 및 정본 경계 규칙을 반영했다 |
